@@ -1,0 +1,17 @@
+FROM node:latest as build
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package.*json ./
+
+RUN npm install --force
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+
+# RUN npm install react-scripts -g --force 
+
+EXPOSE 3000 3001
+COPY . ./
+
+CMD ["npm", "start"]
