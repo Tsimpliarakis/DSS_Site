@@ -1,3 +1,4 @@
+
 services:
   frontend:
     container_name: dss-site
@@ -9,5 +10,12 @@ services:
     - '/app/node_modules'
     ports:
       - 3000:3000
-
-  
+  api:
+    container_name: dss_api
+    build:
+      context: ./server
+      dockerfile: dockerfile.dev
+    volumes:
+      - './server:/app'
+    ports:
+      - 5000:5000
