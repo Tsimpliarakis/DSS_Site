@@ -44,7 +44,9 @@ function Home() {
                 </Col>
             </Row>
             <Row className="rowkoumpi">
-                <Button className="koumpi" variant="outline-success">Submit</Button>
+                <Col>
+                    <Button className="koumpi" variant="outline-success">Submit</Button>
+                </Col>
             </Row>
             <Row>
                 <Footer />
