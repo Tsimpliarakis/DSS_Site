@@ -1,0 +1,52 @@
+.choiceForm {
+    border-radius: 12px;
+    border-style: solid;
+    border-color: #0d6efd;
+    padding: 10px;
+    margin-top: calc(11vw - 1vh);
+}
+
+.imageForm {
+    margin-top: calc(10vw - 3vh);
+    height: 50vw;
+    max-height: 53vh;
+    width: 100%;
+    background-image: url(./drandanddrop.png);
+    background-position: center; 
+    border-radius: 12px;
+    border-style: solid;
+    border-color: #0d6efd;
+    padding: 10px;
+    background-size: 100%;
+}
+
+.imagecol {
+    min-width: 300px;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.choicecol {
+    min-width: 300px;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.homeRow {
+    min-height: calc(100vh - 104px);
+    padding-bottom: 60px;
+}
+
+.formSelect {
+    margin-bottom: 20px;
+}
+
+.koumpi {
+    width: 20%;
+    margin-bottom: 50px;
+    margin-left: 40%;
+}
+
+.rowkoumpi {
+    background-color: #f8f9fa;
+}

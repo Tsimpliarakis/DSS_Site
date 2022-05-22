@@ -1,0 +1,14 @@
+.navbaritems {
+    color: #e6e6e6;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.navbaritems:hover{
+    color: white;
+}
