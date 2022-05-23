@@ -127,8 +127,9 @@ function Home() {
                     </Form.Select>
                     <Form.Select className="formSelect">
                         <option selected disabled>Sex</option>
-                        <option> Male </option>
-                        <option> Female </option>
+                        <option> male </option>
+                        <option> female </option>
+                        <option> unknown </option>
                     </Form.Select>
                     <Form.Select className="formSelect">
                         <option selected disabled>Localization</option>
