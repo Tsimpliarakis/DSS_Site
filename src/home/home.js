@@ -28,6 +28,7 @@ function Home() {
         setImage(e.target.files[0]);
 
     }
+    const closePopup = () =>  setPopup(false);
     let ages = Array.from(Array(100).keys());
     const handleSumbit = async () => {
         let formData = new FormData();
@@ -42,19 +43,18 @@ function Home() {
             body:formData
         })
         const resp_data = await resp.json()
-        setResponse(resp_data)
+        await setResponse(resp_data)
+        setPopup(true)
     }
     useEffect(() => {
         console.log(data);
         console.log(image)
         console.log(response)
-        if (response!=null){
-            setPopup(true);
-        }
+        
     });
     return (
         <Container fluid>
-            <Popup show={showPop} data={response}/>
+            <Popup show={showPop} data={response} closePopup={closePopup}/>
             <Row>
                 <Header />
             </Row>
