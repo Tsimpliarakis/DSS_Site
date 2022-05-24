@@ -10,7 +10,11 @@ import pandas as pd
 import requests
 import json
 import base64
+
+from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/", methods=['POST'])
 def hello_world():
@@ -54,14 +58,14 @@ def predict():
     df = pd.DataFrame(0,index=np.arange(1),columns=columns)
     df['age'] = int(age)
     df['sex'+'_'+sex] = 1
-    df['localization'+'_'+localization] =1 
+    df['localization'+'_'+localization] = 1 
     # retval,buffer = cv2.imencode('.jpg',image)
     headers = {"content-type": "application/json"}
     # image_encoded = base64.b64decode(image)
     # image_string = base64.decodebytes(image_encoded)
     data = json.dumps({"signature_name": "serving_default", "instances": [{"input_1":df.values.tolist()[0] , "input_2":image.tolist()}]})
     
-   
+    
     json_response = requests.post('http://model:8501/v1/models/model:predict', data=data, headers=headers)
     
     predictions = json.loads(json_response.text)['predictions'][0]
