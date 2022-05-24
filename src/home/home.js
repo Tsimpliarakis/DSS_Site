@@ -8,11 +8,10 @@ import Col from 'react-bootstrap/Col';
 import Header from '../header/header.js';
 import Footer from '../footer/footer.js';
 import Button from 'react-bootstrap/Button';
-// import axios from 'axios';
-
+import Modal from 'react-bootstrap/Modal';
 function Home() {
     // const axios = require('axios');
-    const [data,setData] = useState({});
+    const [data,setData] = useState(null);
     const [image,setImage] = useState(null);
     const [response,setResponse] = useState(null);
     const handleChange =  (e) => {
@@ -28,20 +27,20 @@ function Home() {
 
     }
     let ages = Array.from(Array(100).keys());
-    const handleSumbit = () => {
+    const handleSumbit = async () => {
         let formData = new FormData();
         formData.append('sex',data.sex);
         formData.append('age',data.age);
         formData.append('localization',data.localization);
         formData.append('image',image);
-        let resp ;
-        resp = fetch('http://localhost:5000/predict',{
+       
+        const resp = await fetch('http://localhost:5000/predict',{
             headers:{'Conntet-Type':'multipart/form-data', "Access-Control-Allow-Origin": "*"},
             method:'POST',
             body:formData
         })
-        setResponse(resp.json());
-        console.log(resp.json())
+        const resp_data = await resp.json()
+        setData(resp_data)
     }
     useEffect(() => {
         console.log(data);
