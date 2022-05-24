@@ -19,3 +19,15 @@ services:
       - './server:/app'
     ports:
       - 5000:5000
+    depends_on:
+      - model
+  model:
+    container_name: dss_model
+    build:
+      context: ./model
+      dockerfile: dockerfile
+    volumes:
+      - './model:/app'
+    ports:
+      - 8500:8500
+      - 8501:8501

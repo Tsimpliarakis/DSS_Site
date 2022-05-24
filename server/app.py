@@ -1,4 +1,5 @@
 # from urllib import request, response
+from email.mime import base
 from flask import Flask ,request
 from io import BytesIO
 import cv2
@@ -6,7 +7,9 @@ import numpy as np
 from PIL import Image
 import io
 import pandas as pd
-
+import requests
+import json
+import base64
 app = Flask(__name__)
 
 @app.route("/", methods=['POST'])
@@ -49,10 +52,20 @@ def predict():
        'localization_scalp', 'localization_trunk', 'localization_unknown',
        'localization_upper extremity']
     df = pd.DataFrame(0,index=np.arange(1),columns=columns)
-    df['age'] = age
+    df['age'] = int(age)
     df['sex'+'_'+sex] = 1
     df['localization'+'_'+localization] =1 
-    
+    # retval,buffer = cv2.imencode('.jpg',image)
+    headers = {"content-type": "application/json"}
+    # image_encoded = base64.b64decode(image)
+    # image_string = base64.decodebytes(image_encoded)
+    data = json.dumps({"signature_name": "serving_default", "instances": [{"input_1":df.values.tolist()[0] , "input_2":image.tolist()}]})
     
    
-    return str(df.to_numpy()),200
+    json_response = requests.post('http://model:8501/v1/models/model:predict', data=data, headers=headers)
+    
+    predictions = json.loads(json_response.text)['predictions'][0]
+    
+    classes = ['Actinic keratoses', 'Basal cell carcinoma', 'Benign keratosis-like lesions', 'Dermatofibroma', 'Melanoma', 'Melanocytic nevi', 'Vascular lesions']
+    predictions_dict = {classes[i]:round(predictions[i]*100,4) for i in range(len(classes))}
+    return json.dumps({"prediction":classes[np.argmax(predictions)],"probabilites":predictions_dict}),200

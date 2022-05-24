@@ -1,0 +1,20 @@
+# FROM tensorflow/serving:latest
+# WORKDIR /app
+
+
+# COPY . .
+
+# ENV MODEL_NAME="CNN"
+# ENV MODEL_BASE_PATH="/models/CNN"
+
+# EXPOSE 8500
+
+# # CMD ["--model_name=CNN", "--model_base_path=/models]
+
+FROM tensorflow/serving
+COPY models/CNN /models/model/1
+
+EXPOSE 8500
+EXPOSE 8501
+
+ENTRYPOINT ["/usr/bin/tf_serving_entrypoint.sh", "--rest_api_port=8501"]
