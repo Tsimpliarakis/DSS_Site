@@ -9,11 +9,13 @@ import Header from '../header/header.js';
 import Footer from '../footer/footer.js';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Popup from './popup';
 function Home() {
     // const axios = require('axios');
     const [data,setData] = useState(null);
     const [image,setImage] = useState(null);
     const [response,setResponse] = useState(null);
+    const [showPop,setPopup] = useState(false);
     const handleChange =  (e) => {
          setData({
             
@@ -40,15 +42,19 @@ function Home() {
             body:formData
         })
         const resp_data = await resp.json()
-        setData(resp_data)
+        setResponse(resp_data)
     }
     useEffect(() => {
         console.log(data);
         console.log(image)
         console.log(response)
+        if (response!=null){
+            setPopup(true);
+        }
     });
     return (
         <Container fluid>
+            <Popup show={showPop} data={response}/>
             <Row>
                 <Header />
             </Row>

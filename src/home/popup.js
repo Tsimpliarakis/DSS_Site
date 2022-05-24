@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
+import { Button } from "bootstrap";
 function Popup(props){
     return(
         <Modal
-        {...props}
+        show={props.show}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -15,11 +15,17 @@ function Popup(props){
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <h4>{props.response}</h4>
+            {props.data!=null && <h5>Prediction: {props.data['prediction']}</h5>}
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={props.onHide}>Close</Button>
+            {/* <Button onClick={props.onHide}>Close</Button> */}
         </Modal.Footer>
         </Modal>
     )
 }
+Popup.defaultProps = {
+    data:null,
+    show:false
+}
+
+export default Popup;
